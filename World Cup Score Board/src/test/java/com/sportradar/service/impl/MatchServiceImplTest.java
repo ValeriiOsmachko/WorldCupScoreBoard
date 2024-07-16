@@ -44,7 +44,6 @@ public class MatchServiceImplTest {
         matchService.homeTeamScored(uuid);
         matchService.awayTeamScored(uuid);
         List<Match> summaryBoard = matchService.getSummaryBoard();
-        matchService.printBoard();
         assertEquals("Bayern - Dortmund: 3 – 1", summaryBoard.get(0).toString());
     }
 
@@ -80,9 +79,9 @@ public class MatchServiceImplTest {
         assertNotNull(summaryStatistic);
         assertEquals(3, summaryStatistic.size());
         assertEquals("Arsenal - Liverpool: 2 – 2", summaryStatistic.get(0).toString());
-        // 2 Matches have same total score, but [Chelsea - Manchester United] started earlier
-        assertEquals("Chelsea - Manchester United: 2 – 1", summaryStatistic.get(1).toString());
-        assertEquals("Manchester City - Tottenham: 1 – 2", summaryStatistic.get(2).toString());
+        // 2 Matches have same total score, but [Manchester City - Tottenham] started later
+        assertEquals("Manchester City - Tottenham: 1 – 2", summaryStatistic.get(1).toString());
+        assertEquals("Chelsea - Manchester United: 2 – 1", summaryStatistic.get(2).toString());
     }
 
 }

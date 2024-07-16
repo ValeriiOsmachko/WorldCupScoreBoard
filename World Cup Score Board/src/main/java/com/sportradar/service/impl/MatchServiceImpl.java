@@ -81,7 +81,7 @@ public class MatchServiceImpl implements MatchService {
                     Match value1 = match1.getValue();
                     Match value2 = match2.getValue();
                     int i = value2.getTotalScore().compareTo(value1.getTotalScore());
-                    return i == 0 ? value1.getStartTime().compareTo(value2.getStartTime()) : i;
+                    return i == 0 ? value2.getStartTime().compareTo(value1.getStartTime()) : i;
                 })
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
