@@ -29,11 +29,18 @@ public class MatchServiceImplTest {
     }
 
     @Test
-    public void shouldEndMath() {
+    public void shouldEndMatch() {
         UUID uuid = matchService.startMatch("Barcelona", "Real Madrid");
         Match endedMatch = matchService.endMatch(uuid);
         assertNotNull(endedMatch);
         assertEquals("Barcelona - Real Madrid: 0 – 0", endedMatch.toString());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenRemovingByUnExistingMatchId() {
+        matchService.startMatch("Barcelona", "Real Madrid");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> matchService.endMatch(UUID.fromString("0c4cbe73-bf25-4df3-b38c-24f48c061481")));
+        assertEquals("Can't end match with id:0c4cbe73-bf25-4df3-b38c-24f48c061481 because such id doesn't exist", exception.getMessage());
     }
 
     @Test
