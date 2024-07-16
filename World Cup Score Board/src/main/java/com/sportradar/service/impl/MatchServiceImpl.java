@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MatchServiceImpl implements MatchService {
@@ -34,11 +35,15 @@ public class MatchServiceImpl implements MatchService {
     /**
      * Removes match from the storage by provided id.
      * @param matchId match unique identifier
-     * @return removed match
+     * @return removed match either null if invalid
      */
     @Override
     public Match endMatch(UUID matchId) {
-        return storage.remove(matchId);
+        Match match = storage.remove(matchId);
+        if (match == null) {
+            throw new IllegalArgumentException(String.format("Can't end match with id:%s because such id doesn't exist", matchId));
+        }
+        return match;
     }
 
     /**
